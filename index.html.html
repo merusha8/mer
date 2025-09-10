@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>УЛЬТРА-КРИНЖ — С ДНЁМ ГОЛУБЫХ!</title>
+<meta name="description" content="Mega cringey single-file greeting with photo.jpg">
+<style>
+/* =============================
+   ULTRA-CRINGE SINGLE FILE CSS
+   ============================= */
+
+/* variables */
+:root{
+  --bg1:#030418;
+  --bg2:#07182a;
+  --neon1:#7dd3fc;
+  --neon2:#f59e0b;
+  --neon3:#9b5de5;
+  --accent:#ff6b6b;
+  --face-pos: center 30%;
+  --glass: rgba(255,255,255,0.03);
+  --ui-font: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:radial-gradient(circle at 10% 20%, #021021 0%, var(--bg1) 20%), linear-gradient(120deg,var(--bg1),var(--bg2));font-family:var(--ui-font);color:#fff;overflow:hidden}
+
+/* background blobs */
+.bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);mix-blend-mode:screen;opacity:.95}
+.blob.b1{width:900px;height:900px;left:-200px;top:-140px;background:radial-gradient(circle,#ff6b6b 0%,transparent 50%);animation:blobA 20s ease-in-out infinite}
+.blob.b2{width:900px;height:900px;right:-220px;bottom:-160px;background:radial-gradient(circle,#7dd3fc 0%,transparent 50%);animation:blobB 22s ease-in-out infinite}
+.blob.b3{width:700px;height:700px;left:18%;top:8%;background:radial-gradient(circle,#9b5de5 0%,transparent 50%);animation:blobC 18s ease-in-out infinite}
+@keyframes blobA{0%{transform:translate(0,0)}50%{transform:translate(60px,-40px)}100%{transform:translate(0,0)}}
+@keyframes blobB{0%{transform:translate(0,0)}50%{transform:translate(-80px,40px)}100%{transform:translate(0,0)}}
+@keyframes blobC{0%{transform:translate(0,0)}50%{transform:translate(30px,70px)}100%{transform:translate(0,0)}}
+
+/* intro splash */
+#introSplash{
+  position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.85));
+  backdrop-filter: blur(3px);
+}
+.introCard{
+  text-align:center;padding:30px;border-radius:18px;border:6px solid rgba(255,255,255,0.04);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow: 0 40px 120px rgba(0,0,0,0.7);
+  width:92vw;max-width:1200px;
+}
+.introBig{
+  font-weight:900;font-size:clamp(28px,9vw,120px);line-height:0.9;
+  background:linear-gradient(90deg,#fff 0%,var(--neon1) 20%,var(--neon3) 50%,#fff 80%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 10px 60px rgba(125,211,252,0.06);
+  animation:glint 2200ms linear infinite;
+}
+@keyframes glint{0%{filter:drop-shadow(0 0 0 rgba(0,0,0,0))}50%{filter:drop-shadow(0 20px 60px rgba(125,211,252,0.35))}100%{filter:drop-shadow(0 0 0 rgba(0,0,0,0))}}
+.introSmall{margin-top:12px;font-size:18px;opacity:.95;color:var(--neon1)}
+
+/* hide class */
+.introHide{animation:introFade 900ms cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes introFade{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.98);visibility:hidden}}
+
+/* app layout */
+.app{
+  position:relative;z-index:10;display:flex;align-items:center;justify-content:center;height:100vh;padding:24px;
+}
+.panel{
+  width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 380px;gap:20px;
+}
+@media (max-width:980px){.panel{grid-template-columns:1fr;padding-bottom:140px}}
+
+/* left stage */
+.stage{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 24px 120px rgba(2,6,23,0.6);
+  position:relative;overflow:hidden;height:720px;
+}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.title{font-weight:900;font-size:20px;color:var(--neon1)}
+.subtitle{opacity:.85;font-size:13px}
+
+/* field */
+#field{position:relative;height:560px;border-radius:12px;background:linear-gradient(180deg,#041826 0%, #02101a 100%);border:2px solid rgba(125,211,252,0.03);overflow:hidden}
+.mandala{position:absolute;right:-80px;top:-90px;width:420px;height:420px;border-radius:50%;background:conic-gradient(from 120deg,#ff6b6b,#f59e0b,#7dd3fc,#9b5de5,#ff6b6b);filter:blur(22px);opacity:.12}
+
+/* HUD */
+.hud{position:absolute;left:12px;top:12px;display:flex;gap:10px;z-index:30}
+.hudItem{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);font-weight:900}
+.hud .score{color:var(--neon2);font-size:16px}
+
+/* top controls */
+.controls{position:absolute;right:12px;top:12px;display:flex;gap:8px;z-index:30}
+.ctrl{padding:8px 12px;border-radius:10px;border:none;font-weight:900;cursor:pointer}
+.ctrl.primary{background:linear-gradient(90deg,var(--neon1),var(--neon3));color:#04203b;box-shadow:0 12px 30px rgba(0,0,0,0.35)}
+.ctrl.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.04);color:#fff}
+
+/* circular face display */
+.face{
+  position:absolute;left:50%;top:72%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:999px;overflow:hidden;
+  border:8px solid rgba(255,255,255,0.06);z-index:60;background:#000;display:grid;place-items:center;transition:transform .18s ease;
+  box-shadow:0 10px 40px rgba(0,0,0,0.55);
+}
+.face img{width:100%;height:100%;object-fit:cover;object-position:var(--face-pos);display:block;}
+
+/* glow */
+.face.glow{box-shadow:0 20px 60px rgba(125,211,252,0.25), 0 6px 14px rgba(0,0,0,0.6);transform:translate(-50%,-50%) scale(1.04)}
+
+/* items */
+.item{position:absolute;width:56px;height:56px;border-radius:10px;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,0.45);z-index:50;user-select:none}
+.item.gift{background:linear-gradient(180deg,#ffd166,#f59e0b);color:#04203b}
+.item.bomb{background:linear-gradient(180deg,#ff6b6b,#ff3d3d);color:#fff}
+.item.heart{background:linear-gradient(180deg,#ff9ad5,#ff6b6b);color:#04203b}
+.item.spark{background:linear-gradient(90deg,#7dd3fc,#9b5de5);color:#04203b}
+
+/* pop messages */
+.pop{position:absolute;padding:8px 12px;border-radius:10px;font-weight:900;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);pointer-events:none;z-index:90}
+
+/* right side panel */
+.side{display:flex;flex-direction:column;gap:12px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.photoFrame{height:360px;border-radius:12px;overflow:hidden;border:8px solid rgba(255,255,255,0.03);display:grid;place-items:center;position:relative;background:#061324}
+.photoFrame img{width:100%;height:100%;object-fit:cover;object-position:var(--face-pos);transition:transform .6s ease,filter .5s}
+.gifBorder{position:absolute;inset:8px;border-radius:8px;pointer-events:none;background-image:url('https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif');background-size:cover;opacity:.55;mix-blend-mode:screen}
+
+/* buttons */
+.btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(90deg,var(--neon1),var(--neon3));color:#04203b;font-weight:900;cursor:pointer}
+
+/* fullscreen overlay */
+.full{position:fixed;inset:0;z-index:2000;background:radial-gradient(circle,#000 0%, rgba(0,0,0,.3) 40%),linear-gradient(90deg,#050617,#071022);display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s}
+.full.show{opacity:1;pointer-events:auto}
+.full .big{font-weight:900;font-size:64px;background:linear-gradient(90deg,var(--neon1),var(--neon3));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-2px}
+
+/* micro tweaks */
+@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.float{animation:floaty 3.4s ease-in-out infinite}
+
+/* responsive */
+@media (max-width:980px){
+  .panel{grid-template-columns:1fr;padding:12px}
+  #field{height:460px}
+  .face{width:120px;height:120px;top:68%}
+  .photoFrame{height:240px}
+}
+
+/* decorative repeated classes (many) - increases file size visually */
+<!-- intentionally compact repeated rules to give "mega" feeling -->
+/* end CSS */
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND BLOBS -->
+<div class="bg" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- INTRO -->
+<div id="introSplash" role="dialog" aria-label="Интро">
+  <div class="introCard">
+    <div class="introBig" id="introTitle">Елысхан черттттт</div>
+    <div class="introSmall" id="introSub"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" role="application" aria-label="Кринж приложение">
+  <div class="panel">
+
+    <!-- LEFT: stage -->
+    <div class="stage" role="region" aria-label="Сцена">
+      <div class="header">
+        <div>
+          <div class="title">Кринжовый Фестиваль</div>
+          <div class="subtitle">Поймай подарки, избегай бомб — включи музыку и будь мемом</div>
+        </div>
+        <div style="opacity:.85;font-weight:800">CRNGE v2 • alpha</div>
+      </div>
+
+      <div id="field" aria-label="Игровое поле">
+        <div class="mandala" aria-hidden="true"></div>
+
+        <!-- HUD -->
+        <div class="hud" role="status">
+          <div class="hudItem">❤️ <span id="score">0</span></div>
+          <div class="hudItem">⏱ <span id="time">60</span>s</div>
+          <div class="hudItem">🍭 <span id="cringe">9000%</span></div>
+        </div>
+
+        <!-- controls -->
+        <div class="controls">
+          <button id="musicToggle" class="ctrl primary">🎶 Музыка</button>
+          <button id="filterToggle" class="ctrl">🌀 Фильтр</button>
+          <button id="fullToggle" class="ctrl ghost">⛶ Full</button>
+        </div>
+
+        <!-- player's face (circle) -->
+        <div id="playerFace" class="face" role="img" aria-label="Лицо игрока">
+          <!-- Put your photo next to index.html with name "photo.jpg" -->
+          <img id="faceImg" src="WhatsApp Image 2025-09-11 at 01.22.06.jpeg" alt="face">
+        </div>
+
+        <!-- dynamic items layer goes into DOM -->
+      </div>
+    </div>
+
+    <!-- RIGHT: controls & photo -->
+    <div class="side">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:900">Фото и настройки</div>
+          <div style="opacity:.8">настройки</div>
+        </div>
+
+        <div class="photoFrame" title="photo.jpg preview">
+          <img id="heroPhoto" src="WhatsApp Image 2025-09-11 at 01.22.06.jpeg" alt="hero">
+          <div class="gifBorder" aria-hidden="true"></div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button id="startBtn" class="btn">▶ Запустить</button>
+          <button id="pauseBtn" class="btn">⏸ Пауза</button>
+          <button id="resetBtn" class="btn">🔄 Сброс</button>
+          <button id="boomBtn" class="btn">💥 Конфетти шторм</button>
+        </div>
+
+        <div style="margin-top:12px" class="stickers">
+          <div class="sticker">NAAMASTE</div>
+          <div class="sticker">QYZYQ</div>
+          <div class="sticker">OMG</div>
+          <div class="sticker">SO CRINGE</div>
+        </div>
+
+        <div style="margin-top:12px;font-size:13px;opacity:.9">Чтобы заменить фото — положи файл <code>photo.jpg</code> рядом с этим <code>index.html</code>.</div>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:900">Кринж-блок</div>
+        <div style="opacity:.9;margin-top:8px">Нажми «Конфетти шторм» — начнётся яркий хаос. Нажми «Музыка» для мем-трека.</div>
+      </div>
+
+      <div class="card" style="text-align:center;">
+        <div style="font-weight:800">Инструкция</div>
+        <ol style="padding-left:18px;opacity:.9;text-align:left">
+          <li>Помести файл <code>photo.jpg</code> рядом с этим <code>index.html</code>.</li>
+          <li>Открой <code>index.html</code> в браузере.</li>
+          <li>Нажми «▶ Запустить» и «🎶 Музыка» (если звук заблокирован, кликни по странице).</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONFETTI CANVAS -->
+<canvas id="confettiCanvas" style="position:fixed;inset:0;z-index:1200;pointer-events:none"></canvas>
+
+<!-- FULLSCREEN overlay -->
+<div id="fullOverlay" class="full" aria-hidden="true">
+  <div class="big">FULLSCREEN CRINGE MODE</div>
+  <div style="height:14px"></div>
+  <button id="exitFull" class="btn">✖ Выйти</button>
+</div>
+
+<!-- AUDIO (external) -->
+<audio id="bgAudio" loop crossorigin="anonymous">
+  <source src="https://cdn.pixabay.com/download/audio/2022/01/11/audio_89b0f9fd46.mp3?filename=upbeat-happy-112081.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* =============================
+   ULTRA-CRINGE JS
+   HTML/CSS/JS single-file logic
+   ============================= */
+
+/* Elements */
+const intro = document.getElementById('introSplash');
+const introTitle = document.getElementById('introTitle');
+const introSub = document.getElementById('introSub');
+
+const startBtn = document.getElementById('startBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const resetBtn = document.getElementById('resetBtn');
+const boomBtn = document.getElementById('boomBtn');
+const musicToggle = document.getElementById('musicToggle');
+const filterToggle = document.getElementById('filterToggle');
+const fullToggle = document.getElementById('fullToggle');
+const fullOverlay = document.getElementById('fullOverlay');
+const exitFull = document.getElementById('exitFull');
+
+const confettiCanvas = document.getElementById('confettiCanvas');
+const confettiCtx = confettiCanvas.getContext('2d');
+
+const field = document.getElementById('field');
+const playerFace = document.getElementById('playerFace');
+const faceImg = document.getElementById('faceImg');
+const heroPhoto = document.getElementById('heroPhoto');
+
+const hudScore = document.getElementById('score');
+const hudTime = document.getElementById('time');
+
+/* State */
+let score = 0;
+let timeLeft = 60;
+let running = false;
+let paused = false;
+let items = [];
+let confettiPieces = [];
+let confettiRunning = false;
+let spawnTimer = null;
+let gameTimer = null;
+
+/* Set up confetti canvas */
+function resizeConfetti(){
+  confettiCanvas.width = innerWidth;
+  confettiCanvas.height = innerHeight;
+}
+addEventListener('resize', resizeConfetti);
+resizeConfetti();
+
+/* Intro sequence:
+   0s: "Елысхан черттттт"
+   2s: change to "С ДНЁМ ГОЛУБЫХ!"
+   4.2s: hide intro and start ambient
+*/
+setTimeout(()=> {
+  introTitle.textContent = 'С ДНЁМ ГОЛУБЫХ!';
+  introSub.textContent = 'Құттықтаймыз! — лови кринж';
+}, 2000);
+
+setTimeout(()=> {
+  intro.classList.add('introHide');
+  setTimeout(()=> {
+    intro.style.display = 'none';
+    startAmbient();
+    try { document.getElementById('bgAudio').volume = 0.5; } catch(e){}
+  }, 900);
+}, 4200);
+
+/* MUSIC control */
+const bgAudio = document.getElementById('bgAudio');
+musicToggle.addEventListener('click', ()=>{
+  if(bgAudio.paused){ bgAudio.play().catch(()=>{}); musicToggle.textContent='🔊 Музыка ON'; }
+  else { bgAudio.pause(); musicToggle.textContent='🎶 Музыка'; }
+});
+
+/* filter toggle (simple CSS filter) */
+filterToggle.addEventListener('click', ()=>{
+  const on = faceImg.classList.toggle('cringeFilter');
+  heroPhoto.classList.toggle('cringeFilter');
+  filterToggle.textContent = on ? '🫧 Фильтр ON' : '🌀 Фильтр';
+  if(on){
+    faceImg.style.filter = 'saturate(1.4) hue-rotate(30deg) contrast(1.12)';
+    heroPhoto.style.filter = 'saturate(1.4) hue-rotate(30deg) contrast(1.12)';
+  } else {
+    faceImg.style.filter = '';
+    heroPhoto.style.filter = '';
+  }
+});
+
+/* Fullscreen overlay */
+fullToggle.addEventListener('click', ()=> fullOverlay.classList.add('show'));
+exitFull.addEventListener('click', ()=> fullOverlay.classList.remove('show'));
+
+/* small web audio beeper */
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+function ensureAudio(){ if(!audioCtx) audioCtx = new AudioCtx(); }
+function beep(freq, dur=120, vol=0.07){
+  try{
+    ensureAudio();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.value = vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur/1000);
+    setTimeout(()=>{ o.stop(); o.disconnect(); g.disconnect(); }, dur+50);
+  }catch(e){}
+}
+
+/* CONFETTI: simple particle system */
+function makeConfetti(){
+  return {
+    x: Math.random()*confettiCanvas.width,
+    y: -10,
+    r: 6+Math.random()*12,
+    vx: (Math.random()-0.5)*2.4,
+    vy: 2+Math.random()*5,
+    ang: Math.random()*Math.PI*2,
+    va: (Math.random()-0.05)*0.14,
+    color: ['#7dd3fc','#ff6b6b','#f59e0b','#9b5de5'][Math.floor(Math.random()*4)]
+  };
+}
+function startConfetti(n=100){
+  for(let i=0;i<n;i++) confettiPieces.push(makeConfetti());
+  if(!confettiRunning){ confettiRunning = true; confettiLoop(); }
+}
+function stopConfetti(){ confettiRunning = false; }
+function confettiLoop(){
+  if(!confettiRunning) return;
+  confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+  for(const p of confettiPieces){
+    p.x += p.vx; p.y += p.vy; p.ang += p.va;
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.ang);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6);
+    confettiCtx.restore();
+    if(p.y > confettiCanvas.height + 40){
+      Object.assign(p, makeConfetti());
+      p.y = -20;
+    }
+  }
+  requestAnimationFrame(confettiLoop);
+}
+
+/* Emoji rain (DOM) */
+function emojiRain(){
+  const emojis = ['🔥','😂','💙','🎉','💥','🤡','✨','💫'];
+  for(let i=0;i<20;i++){
+    const el = document.createElement('div');
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.position = 'fixed';
+    el.style.left = (Math.random()*90)+'vw';
+    el.style.top = '-8vh';
+    el.style.fontSize = (18 + Math.random()*36) + 'px';
+    el.style.zIndex = 3000;
+    el.style.pointerEvents = 'none';
+    document.body.appendChild(el);
+    el.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(110vh)',opacity:0}], {duration:1200+Math.random()*1600, easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish = ()=> el.remove();
+  }
+}
+
+/* Ambient starter */
+function startAmbient(){
+  startConfetti(60);
+  setInterval(()=>{ if(Math.random()<0.22) startConfetti(40); }, 2200);
+  setInterval(()=>{ if(Math.random()<0.3) emojiRain(); }, 3200);
+}
+
+/* Items spawn and game logic */
+function spawnItem(kind='gift'){
+  const el = document.createElement('div');
+  el.className = 'item ' + kind;
+  el.textContent = kind === 'gift' ? '🎁' : kind === 'heart' ? '💖' : kind === 'spark' ? '✨' : '💣';
+  const rect = field.getBoundingClientRect();
+  const x = Math.random()*(rect.width-80) + 40;
+  el.style.left = x + 'px';
+  el.style.top = - (20 + Math.random()*120) + 'px';
+  field.appendChild(el);
+  const obj = {el, x, y: parseFloat(el.style.top), vy: 0.6 + Math.random()*2.2, kind};
+  items.push(obj);
+
+  el.addEventListener('click', (ev)=>{ ev.stopPropagation(); hitItem(obj); });
+}
+
+function spawnLoop(){
+  if(!running || paused) return;
+  const r = Math.random();
+  if(r < 0.66) spawnItem('gift');
+  else if(r < 0.86) spawnItem('heart');
+  else if(r < 0.96) spawnItem('spark');
+  else spawnItem('bomb');
+  const interval = Math.max(240, 900 - Math.min(500, score*7));
+  spawnTimer = setTimeout(spawnLoop, interval);
+}
+
+/* update loop */
+function updateItems(){
+  const rect = field.getBoundingClientRect();
+  for(const it of items.slice()){
+    it.y += it.vy;
+    it.el.style.top = it.y + 'px';
+    if(it.y > rect.height + 60){ safeRemove(it.el); items = items.filter(x=>x!==it); }
+    else {
+      // collision with face center
+      const faceRect = playerFace.getBoundingClientRect();
+      const ix = it.x + (it.el.offsetWidth||56)/2;
+      const iy = it.y + (it.el.offsetHeight||56)/2;
+      const cx = faceRect.left + faceRect.width/2;
+      const cy = faceRect.top + faceRect.height/2;
+      const d = Math.hypot(ix - cx, iy - cy);
+      if(d < (faceRect.width/2 + 18)){
+        hitItem(it);
+      }
+    }
+  }
+}
+
+/* safe remove */
+function safeRemove(el){ try{ el.remove(); }catch(e){} }
+
+/* hit logic */
+function hitItem(item){
+  if(!item) return;
+  if(item.kind === 'bomb'){
+    score = Math.max(0, score - 2);
+    showPop('💥 БОМБА!', item.x, item.y);
+    beep(160,240,0.12);
+    shakeStage();
+  } else {
+    const add = item.kind==='gift'?1:(item.kind==='heart'?2:3);
+    score += add;
+    showPop('+'+add, item.x, item.y);
+    startConfetti(12);
+    beep(880,100,0.06);
+    playerFace.classList.add('glow');
+    setTimeout(()=> playerFace.classList.remove('glow'), 280);
+  }
+  hudScore.textContent = score;
+  safeRemove(item.el);
+  items = items.filter(i=>i!==item);
+}
+
+/* show small popup */
+function showPop(text, x, y){
+  const el = document.createElement('div');
+  el.className = 'pop';
+  el.style.left = (x||100) + 'px';
+  el.style.top = (y||100) + 'px';
+  el.textContent = text;
+  field.appendChild(el);
+  el.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(-36px)',opacity:0}], {duration:900,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish = ()=> el.remove();
+}
+
+/* shake */
+function shakeStage(){
+  field.animate([{transform:'translateX(0)'},{transform:'translateX(-10px)'},{transform:'translateX(10px)'},{transform:'translateX(0)'}],{duration:420});
+}
+
+/* game loop */
+let last = performance.now();
+function mainLoop(now){
+  const dt = now - last; last = now;
+  if(running && !paused){
+    updateItems();
+  }
+  requestAnimationFrame(mainLoop);
+}
+requestAnimationFrame(mainLoop);
+
+/* controls */
+startBtn.addEventListener('click', ()=>{
+  if(running) return;
+  running = true; paused = false;
+  score = 0; timeLeft = 60;
+  hudScore.textContent = score; hudTime.textContent = timeLeft;
+  spawnLoop();
+  gameTimer = setInterval(()=>{ if(!running || paused) return; timeLeft--; hudTime.textContent = timeLeft; if(timeLeft<=0) endGame(); }, 1000);
+  beep(440,120,0.08);
+});
+pauseBtn.addEventListener('click', ()=>{
+  if(!running) return;
+  paused = !paused;
+  pauseBtn.textContent = paused ? '▶ Продолжить' : '⏸ Пауза';
+});
+resetBtn.addEventListener('click', ()=>{
+  running = false; paused = false; clearTimeout(spawnTimer); spawnTimer=null; clearInterval(gameTimer); gameTimer=null;
+  items.forEach(it=>safeRemove(it.el)); items=[];
+  score = 0; timeLeft = 60; hudScore.textContent = 0; hudTime.textContent = 60;
+  beep(220,80,0.06);
+});
+boomBtn.addEventListener('click', ()=>{ startConfetti(200); emojiRain(); beep(1000,220,0.12); });
+
+/* helper: click field to spawn small gift */
+field.addEventListener('click', (e)=>{
+  if(!running || paused) return;
+  const rect = field.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const el = document.createElement('div'); el.className = 'item gift'; el.style.left = (x-28)+'px'; el.style.top = (y-28)+'px'; el.textContent = '🎁'; field.appendChild(el);
+  setTimeout(()=> safeRemove(el), 900);
+});
+
+/* player face follows mouse (lerp) */
+let pointer = {x:null,y:null};
+window.addEventListener('mousemove', e => { pointer.x = e.clientX; pointer.y = e.clientY; });
+function updateFacePos(){
+  const rect = field.getBoundingClientRect();
+  if(pointer.x === null) return;
+  const tx = pointer.x - rect.left;
+  const ty = pointer.y - rect.top;
+  const curLeft = parseFloat(playerFace.style.left) || rect.width/2;
+  const curTop = parseFloat(playerFace.style.top) || rect.height*0.72;
+  const nx = curLeft + (tx - curLeft) * 0.16;
+  const ny = curTop + (ty - curTop) * 0.16;
+  playerFace.style.left = Math.min(rect.width-60, Math.max(60, nx)) + 'px';
+  playerFace.style.top = Math.min(rect.height-60, Math.max(60, ny)) + 'px';
+  requestAnimationFrame(updateFacePos);
+}
+updateFacePos();
+
+/* small helper beep on startup */
+console.log('%cMEGA-CRINGE ready! Put photo.jpg next to this file.', 'color:#7dd3fc;font-weight:900');
+
+/* utility to unlock audio on touch */
+function unlockAudio(){ try{ bgAudio.play().then(()=>bgAudio.pause()); }catch(e){}; window.removeEventListener('pointerdown', unlockAudio); }
+window.addEventListener('pointerdown', unlockAudio);
+
+/* final end game */
+function endGame(){
+  running = false; paused = false;
+  clearTimeout(spawnTimer); spawnTimer = null;
+  clearInterval(gameTimer); gameTimer = null;
+  items.forEach(it=>safeRemove(it.el)); items=[];
+  showFinal();
+}
+
+function showFinal(){
+  const out = document.createElement('div');
+  out.style.position='fixed'; out.style.left='50%'; out.style.top='50%'; out.style.transform='translate(-50%,-50%)';
+  out.style.padding='18px'; out.style.borderRadius='12px'; out.style.zIndex=4000;
+  out.style.background='linear-gradient(90deg, rgba(125,211,252,0.06), rgba(155,93,229,0.04))';
+  out.innerHTML = `<div style="font-weight:900;font-size:22px">ФИНАЛ — НАБРАЛ(А) <span style="color:var(--neon2)">${score}</span> очков</div>
+  <div style="height:10px"></div><button id="closeFinal" style="padding:8px 12px;border-radius:8px">Закрыть</button>`;
+  document.body.appendChild(out);
+  document.getElementById('closeFinal').onclick = ()=> out.remove();
+  startConfetti(140); emojiRain(); beep(880,200,0.12);
+}
+
+/* periodic cringe popups */
+setInterval(()=>{
+  if(Math.random() < 0.18){
+    const arr = ['OMG 😂','КРИНЖ 💀','AHHAHA','С ДНЁМ ГОЛУБЫХ!'];
+    const t = arr[Math.floor(Math.random()*arr.length)];
+    const x = Math.random()*(innerWidth-200) + 40;
+    const y = Math.random()*(innerHeight-200) + 40;
+    showPopupFloating(t, x, y);
+  }
+}, 2200);
+
+function showPopupFloating(text, x, y){
+  const e = document.createElement('div'); e.textContent = text;
+  e.style.position='fixed'; e.style.left = x + 'px'; e.style.top = y + 'px';
+  e.style.zIndex = 3500; e.style.fontWeight = 900; e.style.padding = '6px 10px'; e.style.borderRadius='8px';
+  e.style.pointerEvents='none'; e.style.background='linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))';
+  document.body.appendChild(e);
+  e.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(-60px)',opacity:0}],{duration:900}).onfinish = ()=> e.remove();
+}
+
+/* ensure code not too quiet */
+console.log('If you want the file to be embedded single-file (photo inside HTML), ask and I will produce base64 variant.');
+
+/* End JS */
+</script>
+</body>
+</html>
